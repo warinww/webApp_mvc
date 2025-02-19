@@ -1,0 +1,145 @@
+﻿@model User
+
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+<link rel="stylesheet" href="~/css/StyleSheet.css">
+<link rel="stylesheet" href="~/css/page_my_profile.css">
+
+<div class="nav-main">
+    <a href="@Url.Action("MyProfile", "Profile")" class="profileNav" data-page="profile">ข้อมูลส่วนตัว</a>
+    <a href="@Url.Action("Flags", "Profile")" class="profileNav" data-page="flags">ธงแดง/ธงเขียว</a>
+    <a href="@Url.Action("History", "Profile")" class="profileNav" data-page="history">ประวัติ</a>
+    <a href="@Url.Action("Posts", "Profile")" class="profileNav" data-page="posts">โพสต์ของฉัน</a>
+    <a class="profileNav" href="@Url.Action("Logout", "Account")" style="color: red;">ออกจากระบบ</a>
+</div>
+
+<div class="profile-con">
+    <div class="myImg">
+        <img src="~/image/hinata.jpg" alt="Profile Image">
+        <p>@Model.Username</p>
+    </div>
+
+    <div class="info-con">
+        <div class="myname">
+            <p>ชื่อ - นามสกุล: <span>@Model.Name</span></p>
+        </div>
+        <div class="gender-age">
+            <div class="myage">
+                <p>อายุ: <span>@Model.Age</span></p>
+            </div>
+            <div class="mygender">
+                <p>เพศ: <span>@Model.Gender</span></p>
+            </div>
+        </div>
+        <div class="mycontact">
+            <p>ช่องทางการติดต่อ: <span>@Model.Contact</span></p>
+        </div>
+        <div class="mydescription">
+            <p>คำอธิบายตัวตน: <span>@Model.Description</span></p>
+        </div>
+        <button onclick="editProfile()" id="edit-btn">แก้ไข</button>
+    </div>
+
+    <!-- Edit info -->
+    <div class="info" style="display: none;">
+        <div class="edit-profile">
+            <img src="~/image/plus-circle (7).svg" alt="add-profile" id="uploadBtn">
+            <input type="file" id="fileInput" style="display: none;">
+        </div>
+        <form id="content" onsubmit="showAlert(event)">
+            <label for="name">ชื่อ - นามสกุล : </label>
+            <input type="text" name="name" id="name" required> <br>
+            <label for="age">อายุ : </label>
+            <input type="text" name="age" id="age" required>
+            <label for="gender">เพศ : </label>
+            <select id="gender" required>
+                <option value="" hidden></option>
+                <option value="ชาย">ชาย</option>
+                <option value="หญิง">หญิง</option>
+                <option value="ไม่ระบุเพศ">ไม่ระบุเพศ</option>
+            </select> <br>
+            <label for="contact">ช่องทางการติดต่อ : </label>
+            <input type="tel" name="tel" id="tel" pattern="[0-9]{10}" placeholder="0xxxxxxxxx"><br>
+            <label for="description">คำอธิบายตัวตน : </label>
+            <textarea name="descript" id="descript"></textarea>
+            <button type="submit" data-alert="สร้างบัญชีเสร็จสิ้น" data-descript="กดตกลงเพื่อเข้าสู่หน้าเว็บไซต์" id="edit-btn">ยืนยัน</button>
+        </form>
+    </div>
+</div>
+
+<!-- Custom Alert Box -->
+<div class="custom-alert" id="customAlert">
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+    </p>
+    <h2 id="alert_h2">สร้างบัญชีเสร็จสิ้น</h2>
+    <p id="alert_p">กดตกลงเพื่อเข้าสู่หน้าเว็บไซต์</p>
+    <button class="alert-button" onclick="closeAlert()">ตกลง</button>
+</div>
+
+<!-- Overlay -->
+<div class="alert-overlay" id="alertOverlay"></div>
+
+<script>
+    const nav = document.querySelectorAll('.profileNav');
+    function setSelectedPage() {
+        const selectedPage = localStorage.getItem('selectedPage');
+        nav.forEach((button) => {
+            button.classList.remove('selected');
+            if (button.getAttribute('data-page') === selectedPage) {
+                button.classList.add('selected');
+            }
+        });
+    }
+
+    nav.forEach((button) => {
+        button.addEventListener('click', (event) => {
+            localStorage.setItem('selectedPage', event.target.getAttribute('data-page'));
+            setSelectedPage();
+        });
+    });
+
+    setSelectedPage();
+
+    function showAlert(event) {
+        event.preventDefault();
+        alert_h2.textContent = "สร้างบัญชีเสร็จสิ้น";
+        alert_p.textContent = "กดตกลงเพื่อเข้าสู่หน้าเว็บไซต์";
+        customAlert.style.display = 'block';
+        alertOverlay.style.display = 'block';
+    }
+
+    function closeAlert() {
+        customAlert.style.display = 'none';
+        alertOverlay.style.display = 'none';
+        document.getElementById("content").submit();
+    }
+
+    function editProfile() {
+        document.querySelector(".info-con").style.display = "none";
+        document.querySelector(".info").style.display = "block";
+        // Pre-fill the edit form with current values
+        document.getElementById("name").value = "@Model.Name";
+        document.getElementById("age").value = "@Model.Age";
+        document.getElementById("gender").value = "@Model.Gender";
+        document.getElementById("tel").value = "@Model.Contact";
+        document.getElementById("descript").value = "@Model.Description";
+    }
+
+    document.getElementById("uploadBtn").addEventListener("click", function() {
+        document.getElementById("fileInput").click();
+    });
+    document.getElementById("fileInput").addEventListener("change", function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.querySelector(".myImg img").src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
+

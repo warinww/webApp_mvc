@@ -1,0 +1,201 @@
+﻿
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    font-family: "Noto Sans Thai Looped";
+}
+
+/* nav profile */
+.profileNav {
+    padding: 20px 0 20px;
+    text-align: center;
+    background-color: #d9d9d9;
+    color: black;
+    border: none;
+    cursor: pointer;
+    width: 15vw;
+    height: 5vh;
+    border-right: 2px solid #ccc;
+    border-bottom: 2px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.nav-main {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 80px;
+}
+
+.profileNav:hover {
+    background-color: white;
+}
+
+.profileNav.selected {
+    background-color: white;
+    color: #A19AD3;
+}
+
+a {
+    all: unset;
+    font-family: "Noto Sans Thai Looped", sans-serif;
+}
+
+@media (min-width: 1200px) {
+    .header-name {
+        left: 150px;
+    }
+}
+
+.profile-con {
+    display: flex;
+    margin: 120px 130px 0 400px;
+    position: relative;
+}
+
+.myImg {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+    .myImg img {
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+        margin-bottom: 20px;
+        object-fit: cover;
+    }
+
+.info-con {
+    margin-top: 40px;
+    display: block;
+    margin-left: 90px;
+}
+
+.myname {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+    .myname span {
+        background-color: #d9d9d9;
+        padding: 0 30px;
+        border-radius: 5px;
+    }
+
+.gender-age {
+    display: flex;
+    gap: 50px;
+}
+
+.myage, .mygender {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+    .myage span, .mygender span {
+        background-color: #d9d9d9;
+        padding: 0 30px;
+        border-radius: 5px;
+    }
+
+.mycontact {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+    .mycontact span {
+        display: block;
+        background-color: #d9d9d9;
+        padding: 0 30px;
+        border-radius: 10px;
+    }
+
+.mydescription {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+    .mydescription span {
+        background-color: #d9d9d9;
+        width: 500px;
+        height: 100px;
+        padding: 2px 30px;
+        border-radius: 5px;
+    }
+
+#edit-btn {
+    position: absolute;
+    top: 350px;
+    right: 0px;
+}
+
+.edit-profile {
+    position: absolute;
+    top: 200px;
+    left: 200px;
+    cursor: pointer;
+}
+
+.info {
+    margin-top: 40px;
+    margin-left: 90px;
+}
+
+label, input {
+    margin-bottom: 30px;
+    border-radius: 5px;
+}
+
+textarea {
+    border-radius: 5px;
+    vertical-align: top;
+    width: 500px;
+    height: 100px;
+    resize: none;
+}
+
+/* สำหรับแท็บเล็ต (กลาง) */
+@media (max-width: 1190px) and (min-width: 820px) {
+    .header-name {
+        left: 110px;
+    }
+
+    .profile-con {
+        display: flex;
+        flex-direction: column;
+        margin: 120px 30px 0 120px;
+        position: relative;
+    }
+
+    .mydescription {
+        display: block;
+        margin-bottom: 30px;
+    }
+
+        .mydescription span {
+            display: block;
+        }
+
+    #edit-btn {
+        position: absolute;
+        top: 700px;
+        right: 40%;
+    }
+
+    .edit-profile {
+        position: absolute;
+        left: 380px;
+    }
+}
+

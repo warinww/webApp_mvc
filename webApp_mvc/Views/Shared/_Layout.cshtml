@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+
+    <!-- Link to CSS files -->
+    <link rel="stylesheet" href="~/css/styleSheet.css">
+    <link rel="stylesheet" href="~/css/page_my_profile.css">
+    ]
+    @RenderSection("Styles", false)
+
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <img class="header-logo-pic" onclick="window.location.href='@Url.Action("Index", "User")'" src="~/image/logo.png" alt="Logo">
+        <a class="header-name" href="@Url.Action("Index", "User")">.นัดพบ</a>
+        <img class="header-profile-pic" onclick="window.location.href='@Url.Action("Profile", "User", new { id = "67b257cc49f974b124dd85e7" })'" src="~/image/hinata.jpg" alt="Profile Picture">
+    </header>
+
+    <!-- Main content section -->
+    @RenderBody()
+
+</body>
+</html>
